@@ -15,7 +15,7 @@ export class RedButtonComponent {
     // Delay to reset the pushed state after the animation completes
     setTimeout(() => {
       this.isButtonPushed = false;
-      const confirmation = window.alert('I AM ABOUT TO HACK YOU');
+      const confirmation = window.alert('Hi :)');
     }, 200);
     
   }

@@ -1,4 +1,6 @@
 import helperFunctions
+##PATH TO LOCAL FILE : "C:\Users\Josip\AppData\Local\Google\Chrome\User Data\Profile 1\History"
+
 
 global_object = {
     "name": "John",
@@ -49,7 +51,7 @@ def display_menu():
 
 def main():
     # Specify the path to the Chrome history file
-    history_file_path_raw = input("Enter file path to Chrome history file, example: 'C:\Users\User\... ")
+    history_file_path_raw = input("Enter file path to Chrome history file")
     history_file_path = rf'{history_file_path_raw}'
 
     while True:

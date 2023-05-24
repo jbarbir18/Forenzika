@@ -1,0 +1,6 @@
+<div id="dropZone" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
+    <input type="text" placeholder="Drop your file here or click to select" readonly/>
+    <div *ngIf="fileDropped">
+        Thank you
+    </div>
+</div>
