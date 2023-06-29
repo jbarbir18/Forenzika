@@ -31,16 +31,10 @@ def calculate_file_age(filePath):
         minutes = (duration.seconds % 3600) // 60
         seconds = duration.seconds % 60
 
-        print("Oldest Record Duration:")
-        print("Years:", years)
-        print("Months:", months)
-        print("Days:", days)
-        print("Hours:", hours)
-        print("Minutes:", minutes)
-        print("Seconds:", seconds)
+        fileAge = f"Age of file is: {years}y {months}m {days}d {hours}h {minutes}m"
+        return fileAge
     else:
-        print("No records found in the browsing history.")
-
+        return "Error while calculating age of file"
 
 
 def calculate_top_visits(filePath, topNum):
