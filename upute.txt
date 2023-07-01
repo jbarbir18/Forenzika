@@ -1,4 +1,0 @@
-History se čuva samo za zadnjih cca mjesec dana
-    ->analiza history-a jednostavna, sve se sprema u sql tablicu sa stupcima (broj posjeta, zadnja posjeta itd)
-    
-Koristiti takeout.google.com (proces moze trajati koji dan)

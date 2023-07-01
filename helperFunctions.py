@@ -3,6 +3,8 @@ import datetime
 import os
 import json
 import pdfkit
+import urllib.parse
+
 
 #Calculates the age of the oldest record in the file
 def calculate_file_age(filePath):
@@ -24,7 +26,7 @@ def calculate_file_age(filePath):
         # Calculate the duration between the oldest record and the current time
         duration = datetime.datetime.now() - oldest_visit_time
 
-        years = duration.days // 365
+        years = duration.days % 365 // 365
         months = (duration.days % 365) // 30
         days = (duration.days % 365) % 30
         hours = duration.seconds // 3600
@@ -44,48 +46,84 @@ def calculate_top_visits(filePath, topNum):
     history_entries = cursor.fetchall()
     connection.close()
 
-    # Create a dictionary to store visit counts for each URL
     visit_counts = {}
-
-    # Iterate through the history entries and update visit counts
     for entry in history_entries:
         url = entry[0]
         count = entry[1]
         visit_counts[url] = visit_counts.get(url, 0) + count
     
     sorted_visits = sorted(visit_counts.items(), key=lambda x: x[1], reverse=True)
-
-    print(f"Top {topNum} Most Visited Pages:")
-    for url, count in sorted_visits[:topNum]:
-        print("URL:", url)
-        print("Visit Count:", count)
-        print()
+    
+    result = []
+    result.append(f"Top {topNum} Most Visited Pages:")
+    for i, (url, count) in enumerate(sorted_visits[:topNum], start=1):
+        result.append(f"{i}. {url}")
     
     if len(sorted_visits) < topNum:
-        print(f"Less than {topNum} URLs found in browsing history.")
+        result.append(f"Less than {topNum} URLs found in browsing history.")
+    
+    return result
+
 
 def calculate_page_visits(filePath, pageName):
     connection = sqlite3.connect(filePath)
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM urls")
 
-    # Fetch all the results - not working atm
     history_entries = cursor.fetchall()
     page_prompt_num = cursor.execute(f"SELECT * FROM urls WHERE url LIKE '%{pageName}%'")
     page_entries = cursor.fetchall()
 
     page_visits_count = len(page_entries)
+    return page_visits_count
 
-def export_user_data(objectData, fileName):
-    json_data = json.dumps(objectData, indent=4)
-    temp_html_filename = "temp.html"
 
-    with open(temp_html_filename, "w") as file:
-        file.write(f"<pre>{json_data}</pre>")
+def find_recently_visited_pages(filePath, numPages):
+    connection = sqlite3.connect(filePath)
+    cursor = connection.cursor()
+    cursor.execute("SELECT url, last_visit_time FROM urls ORDER BY last_visit_time DESC")
+    history_entries = cursor.fetchall()
+    connection.close()
+
+    result = []
+    result.append(f"Most Recent {numPages} Visited Pages:")
+    for i, (url, _) in enumerate(history_entries[:numPages], start=1):
+        result.append(f"{i}. {url}")
     
-    pdfkit.from_file(temp_html_filename, fileName)
+    if len(history_entries) < numPages:
+        result.append(f"Less than {numPages} URLs found in browsing history.")
+    
+    return result
 
-    os.remove(temp_html_filename)
+
+def identify_popular_domains(filePath, topNum):
+    connection = sqlite3.connect(filePath)
+    cursor = connection.cursor()
+    cursor.execute("SELECT url, visit_count FROM urls")
+    history_entries = cursor.fetchall()
+    connection.close()
+
+    domain_counts = {}
+    for entry in history_entries:
+        url = entry[0]
+        count = entry[1]
+        domain = urllib.parse.urlparse(url).netloc
+        domain_counts[domain] = domain_counts.get(domain, 0) + count
+    
+    sorted_domains = sorted(domain_counts.items(), key=lambda x: x[1], reverse=True)
+    
+    result = []
+    result.append(f"Top {topNum} Most Popular Domains:")
+    for i, (domain, count) in enumerate(sorted_domains[:topNum], start=1):
+        result.append(f"{i}. {domain} - Visits: {count}")
+    
+    if len(sorted_domains) < topNum:
+        result.append(f"Less than {topNum} domains found in browsing history.")
+    
+    return result
+
+
+
 
 
 

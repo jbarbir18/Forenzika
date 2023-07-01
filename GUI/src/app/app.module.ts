@@ -3,14 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RedButtonComponent } from './red-button/red-button.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { AnalysisComponent } from './analysis/analysis.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RedButtonComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    AnalysisComponent
   ],
   imports: [
     BrowserModule,
