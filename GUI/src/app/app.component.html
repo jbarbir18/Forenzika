@@ -1,8 +1,5 @@
 <div id = "app-container">
-    <button (click)="toggleElements()" class="toggle-button">Toggle</button>
-    <div *ngIf="isElementVisible">
-        <app-file-upload></app-file-upload>
-    </div>
+    <button *ngIf="isElementVisible" (click)="toggleElements()" class="toggle-button">Toggle</button>
     <div *ngIf="!isElementVisible">
         <app-analysis></app-analysis>
     </div>

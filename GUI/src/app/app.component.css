@@ -1,12 +1,3 @@
-#app-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-}
-
 .toggle-button {
     background-color: #4CAF50;
     border: none;
@@ -25,3 +16,9 @@
   .toggle-button:hover {
     background-color: #45a049;
   }
+  #app-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

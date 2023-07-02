@@ -1,1 +1,30 @@
-<p>analysis works!</p>
+<div id = "app-container" *ngIf="jsonData">
+  <h1 id="fileage-header">{{userData.FileAge}}</h1>
+  <div id = "topvisits-list" class="f-list">
+    <ul>
+      <div *ngFor="let item of userData.TopVisits">
+        <li>{{item}}</li>
+      </div>
+    </ul>
+  </div>
+  <div id = "topdomains-list" class="f-list">
+    <ul>
+      <div *ngFor="let item of userData.PopularDomains">
+        <li>{{item}}</li>
+      </div>
+    </ul>
+  </div>
+  <div id = "recentvisits-list" class="f-list">
+    <ul>
+      <div *ngFor="let item of userData.RecentVisits">
+        <li>{{item}}</li>
+      </div>
+    </ul>
+  </div>
+  <div id = "pagevisitscount">
+    <h1>Page {{userData.PageVisitsPage}} has been visited {{userData.PageVisitsCount}} times on current device</h1>
+  </div>
+</div>
+<div *ngIf="!jsonData">
+    Loading JSON data...
+</div>

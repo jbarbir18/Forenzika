@@ -1,0 +1,19 @@
+.f-list {
+    list-style: none !important;
+    padding: 0; 
+    margin: 0;
+  }
+  
+  .f-list li {
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .f-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  
