@@ -71,7 +71,6 @@ def main():
 
         if choice == "1":
             user_data_main = option_1(history_file_path)
-            isAnalysed = 1
         elif choice == "2":
             option_2(history_file_path, user_data_main)
         elif choice == "3":
